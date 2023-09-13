@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+      <h1 class="text-2xl font-semibold text-center mb-4">Login</h1>
+      <form id="login-form" action="/login" method="post">
+        <div class="mb-4">
+          <label for="email" class="block text-gray-600 text-sm mb-2"
+            >Email</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            class="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+          />
+          <span id="email-error" class="text-red-500 hidden"
+            >Please enter a email.</span
+          >
+        </div>
+        <div class="mb-6">
+          <label for="password" class="block text-gray-600 text-sm mb-2"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            class="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+          />
+          <span id="password-error" class="text-red-500 hidden"
+            >Please enter a password.</span
+          >
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600 transition duration-300"
+        >
+          Login
+        </button>
+      </form>
+      <p class="text-sm text-gray-600 mt-4 text-center">
+        Create account
+        <a
+          href="/signup"
+          class="inline-block px-1 py-3 duration-300 hover:text-decoration-none"
+          >SIGN UP
+        </a>
+      </p>
+    </div>
+  </body>
+  <script>
+    $(document).ready(function () {
+      $('#login-form').submit(function (event) {
+        // Prevent the form from submitting
+        event.preventDefault();
+
+        // Get form input values
+        var email = $('#email').val();
+        var password = $('#password').val();
+
+        // Reset previous error messages and remove 'hidden' class
+        $('#email-error').addClass('hidden');
+        $('#password-error').addClass('hidden');
+
+        // Perform form validation
+        var isValid = true;
+        if (!email) {
+          $('#email-error').removeClass('hidden');
+          isValid = false;
+        }
+        if (!password) {
+          $('#password-error').removeClass('hidden');
+          isValid = false;
+        }
+
+        // If all validation passes, you can submit the form
+        if (isValid) {
+          $('#login-form')[0].submit();
+        }
+      });
+
+      // Add event listeners to hide error messages when there's input
+      $('#email').on('input', function () {
+        $('#email-error').addClass('hidden');
+      });
+      $('#password').on('input', function () {
+        $('#password-error').addClass('hidden');
+      });
+    });
+  </script>
+</html>
